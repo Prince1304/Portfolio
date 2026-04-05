@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kyada Prince | Creative Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        :root{
+            --bg:#050816;
+            --bg-2:#0b1330;
+            --panel:rgba(10,18,45,0.72);
+            --line:rgba(255,255,255,0.08);
+            --text:#f4fbff;
+            --muted:#9db4c6;
+            --primary:#68f6ff;
+            --secondary:#7d7fff;
+            --accent:#22ffc6;
+            --danger:#ff6db1;
+            --shadow:0 18px 50px rgba(0,0,0,0.35);
+        }
+
+        *{box-sizing:border-box}
+        html{scroll-behavior:smooth}
+        body{
+            margin:0;
+            font-family:"Outfit",sans-serif;
+            color:var(--text);
+            background:
+                radial-gradient(circle at top left, rgba(125,127,255,.18), transparent 30%),
+                radial-gradient(circle at 80% 10%, rgba(34,255,198,.12), transparent 20%),
+                radial-gradient(circle at bottom right, rgba(104,246,255,.12), transparent 25%),
+                linear-gradient(135deg,#03050d 0%,#091229 45%,#040915 100%);
+            overflow-x:hidden;
+        }
+
+        body::before,
+        body::after{
+            content:"";
+            position:fixed;
+            border-radius:50%;
+            filter:blur(60px);
+            z-index:0;
+            pointer-events:none;
+        }
+
+        body::before{
+            width:300px;
+            height:300px;
+            background:rgba(125,127,255,.18);
+            top:-60px;
+            left:-80px;
+            animation:blob 8s ease-in-out infinite;
+        }
+
+        body::after{
+            width:260px;
+            height:260px;
+            background:rgba(34,255,198,.14);
+            right:-80px;
+            bottom:0;
+            animation:blob 10s ease-in-out infinite reverse;
+        }
+
+        .container{
+            width:min(1180px,calc(100% - 24px));
+            margin:auto;
+            position:relative;
+            z-index:1;
+        }
+
+        .navbar{
+            position:sticky;
+            top:14px;
+            z-index:50;
+            margin-top:18px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            gap:16px;
+            padding:14px 18px;
+            background:rgba(7,14,34,.7);
+            border:1px solid rgba(255,255,255,.08);
+            border-radius:999px;
+            backdrop-filter:blur(18px);
+            box-shadow:0 0 25px rgba(104,246,255,.08);
+        }
+
+        .logo{
+            display:flex;
+            align-items:center;
+            gap:12px;
+        }
+
+        .logo-icon{
+            width:44px;
+            height:44px;
+            border-radius:14px;
+            display:grid;
+            place-items:center;
+            background:linear-gradient(135deg,var(--primary),var(--accent));
+            color:#06111a;
+            font-size:1.2rem;
+            box-shadow:0 0 22px rgba(104,246,255,.32);
+            animation:tilt 4s ease-in-out infinite;
+        }
+
+        .logo-text strong{
+            display:block;
+            font-size:1rem;
+            letter-spacing:.08em;
+            text-transform:uppercase;
+        }
+
+        .logo-text span{
+            color:var(--muted);
+            font-size:.82rem;
+        }
+
+        .nav-links{
+            display:flex;
+            gap:10px;
+            flex-wrap:wrap;
+        }
+
+        .nav-links a,
+        .nav-btn,
+        .btn{
+            text-decoration:none;
+            color:var(--text);
+            border-radius:999px;
+            padding:11px 18px;
+            transition:.3s ease;
+            border:1px solid transparent;
+            font-weight:600;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active,
+        .nav-btn:hover,
+        .btn:hover{
+            background:var(--primary);
+            color:#06111a;
+            transform:translateY(-2px);
+            box-shadow:0 12px 24px rgba(104,246,255,.2);
+        }
+
+        .nav-btn{
+            background:rgba(255,255,255,.05);
+            border:1px solid rgba(255,255,255,.08);
+        }
+
+        .hero{
+            min-height:100vh;
+            display:grid;
+            grid-template-columns:1.05fr .95fr;
+            align-items:center;
+            gap:40px;
+            padding:60px 0 30px;
+        }
+
+        .badge{
+            display:inline-flex;
+            gap:10px;
+            align-items:center;
+            padding:10px 16px;
+            border-radius:999px;
+            background:rgba(104,246,255,.08);
+            border:1px solid rgba(104,246,255,.18);
+            color:var(--primary);
+            margin-bottom:18px;
+        }
+
+        h1{
+            margin:0;
+            font-size:clamp(2.8rem,7vw,5.5rem);
+            line-height:.95;
+            letter-spacing:-.05em;
+        }
+
+        h1 span{
+            display:block;
+            color:var(--primary);
+            text-shadow:0 0 24px rgba(104,246,255,.32);
+        }
+
+        .hero p{
+            max-width:620px;
+            color:var(--muted);
+            line-height:1.8;
+            font-size:1.05rem;
+            margin:22px 0 28px;
+        }
+
+        .typing{
+            color:var(--accent);
+            font-weight:700;
+        }
+
+        .hero-actions{
+            display:flex;
+            gap:14px;
+            flex-wrap:wrap;
+        }
+
+        .btn-primary{
+            background:linear-gradient(135deg,var(--primary),var(--accent));
+            color:#04121b;
+        }
+
+        .btn-outline{
+            background:rgba(255,255,255,.04);
+            border:1px solid rgba(255,255,255,.1);
+        }
+
+        .stats{
+            display:flex;
+            flex-wrap:wrap;
+            gap:14px;
+            margin-top:28px;
+        }
+
+        .stat{
+            min-width:150px;
+            padding:16px 18px;
+            border-radius:22px;
+            background:rgba(255,255,255,.04);
+            border:1px solid rgba(255,255,255,.08);
+            backdrop-filter:blur(14px);
+        }
+
+        .stat strong{
+            display:block;
+            color:var(--primary);
+            font-size:1.6rem;
+            margin-bottom:4px;
+        }
+
+        .hero-visual{
+            position:relative;
+            display:grid;
+            place-items:center;
+            min-height:520px;
+        }
+
+        .orbit,
+        .orbit::before,
+        .orbit::after{
+            content:"";
+            position:absolute;
+            border-radius:50%;
+            border:1px solid rgba(104,246,255,.16);
+        }
+
+        .orbit{
+            width:min(74vw,470px);
+            aspect-ratio:1;
+            animation:spin 18s linear infinite;
+        }
+
+        .orbit::before{
+            inset:30px;
+            border-color:rgba(125,127,255,.18);
+        }
+
+        .orbit::after{
+            inset:56px;
+            border-style:dashed;
+            border-color:rgba(34,255,198,.22);
+        }
+
+        .image-card{
+            width:min(76vw,420px);
+            aspect-ratio:.88;
+            padding:16px;
+            border-radius:34px;
+            background:linear-gradient(160deg,rgba(255,255,255,.08),rgba(8,16,40,.5));
+            border:1px solid rgba(255,255,255,.1);
+            backdrop-filter:blur(18px);
+            box-shadow:var(--shadow),0 0 40px rgba(104,246,255,.12);
+            animation:floatCard 5s ease-in-out infinite;
+        }
+
+        .image-card img{
+            width:100%;
+            height:100%;
+            object-fit:cover;
+            display:block;
+            border-radius:24px;
+        }
+
+        .floating{
+            position:absolute;
+            padding:12px 16px;
+            border-radius:999px;
+            background:rgba(8,14,34,.85);
+            border:1px solid rgba(104,246,255,.18);
+            backdrop-filter:blur(16px);
+            box-shadow:var(--shadow);
+            font-weight:600;
+        }
+
+        .floating.top{top:12%;right:0;animation:floatTag 4s ease-in-out infinite}
+        .floating.bottom{bottom:12%;left:-2%;animation:floatTag 5s ease-in-out infinite reverse}
+
+        section.block{
+            padding:90px 0 20px;
+        }
+
+        .section-head{
+            text-align:center;
+            margin-bottom:34px;
+        }
+
+        .section-head h2{
+            margin:0 0 10px;
+            font-size:clamp(2rem,4vw,3rem);
+        }
+
+        .section-head p{
+            color:var(--muted);
+            max-width:720px;
+            margin:auto;
+            line-height:1.8;
+        }
+
+        .grid-3{
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:20px;
+        }
+
+        .card{
+            background:rgba(255,255,255,.04);
+            border:1px solid rgba(255,255,255,.08);
+            border-radius:26px;
+            padding:24px;
+            box-shadow:var(--shadow);
+            transition:.35s ease;
+        }
+
+        .card:hover{
+            transform:translateY(-8px);
+            border-color:rgba(104,246,255,.22);
+            box-shadow:0 18px 50px rgba(0,0,0,.38),0 0 28px rgba(104,246,255,.12);
+        }
+
+        .card i{
+            width:54px;
+            height:54px;
+            border-radius:16px;
+            display:grid;
+            place-items:center;
+            font-size:1.2rem;
+            margin-bottom:16px;
+            background:linear-gradient(135deg,var(--primary),var(--accent));
+            color:#05121a;
+        }
+
+        .card h3{
+            margin:0 0 10px;
+        }
+
+        .card p{
+            margin:0;
+            color:var(--muted);
+            line-height:1.7;
+        }
+
+        .about-box{
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:24px;
+            align-items:stretch;
+        }
+
+        .about-panel,
+        .contact-panel{
+            background:rgba(255,255,255,.04);
+            border:1px solid rgba(255,255,255,.08);
+            border-radius:30px;
+            padding:28px;
+            box-shadow:var(--shadow);
+        }
+
+        .skills{
+            display:flex;
+            flex-wrap:wrap;
+            gap:12px;
+            margin-top:18px;
+        }
+
+        .skill{
+            padding:10px 14px;
+            border-radius:999px;
+            background:rgba(104,246,255,.08);
+            border:1px solid rgba(104,246,255,.14);
+            color:var(--primary);
+            font-weight:600;
+        }
+
+        .project-card{
+            overflow:hidden;
+            padding:0;
+        }
+
+        .project-image{
+            height:220px;
+            background:linear-gradient(135deg,#121d46,#102235 55%,#0d4b50);
+            display:grid;
+            place-items:center;
+            font-size:3rem;
+            color:rgba(255,255,255,.8);
+        }
+
+        .project-content{
+            padding:24px;
+        }
+
+        .project-content p{
+            color:var(--muted);
+            line-height:1.7;
+        }
+
+        form{
+            display:grid;
+            gap:14px;
+        }
+
+        input,textarea{
+            width:100%;
+            padding:14px 16px;
+            border-radius:16px;
+            border:1px solid rgba(255,255,255,.08);
+            background:rgba(255,255,255,.04);
+            color:var(--text);
+            font:inherit;
+            outline:none;
+        }
+
+        input:focus,textarea:focus{
+            border-color:rgba(104,246,255,.32);
+            box-shadow:0 0 0 4px rgba(104,246,255,.08);
+        }
+
+        textarea{
+            min-height:130px;
+            resize:vertical;
+        }
+
+        .footer{
+            padding:42px 0 30px;
+            text-align:center;
+            color:var(--muted);
+        }
+
+        #heart{
+            position:fixed;
+            right:16px;
+            bottom:16px;
+            width:70px;
+            height:70px;
+            border-radius:50%;
+            display:grid;
+            place-items:center;
+            background:rgba(9,18,43,.88);
+            color:var(--danger);
+            border:1px solid rgba(255,109,177,.22);
+            box-shadow:0 0 28px rgba(255,109,177,.18);
+            font-size:1.9rem;
+            animation:heartBeat 1.2s ease-in-out infinite;
+            z-index:60;
+        }
+
+        .reveal{
+            opacity:0;
+            transform:translateY(45px);
+            transition:opacity .8s ease, transform .8s ease;
+        }
+
+        .reveal.show{
+            opacity:1;
+            transform:translateY(0);
+        }
+
+        @keyframes blob{
+            0%,100%{transform:translate(0,0)}
+            50%{transform:translate(16px,22px)}
+        }
+
+        @keyframes tilt{
+            0%,100%{transform:rotate(0)}
+            50%{transform:rotate(10deg)}
+        }
+
+        @keyframes spin{
+            from{transform:rotate(0)}
+            to{transform:rotate(360deg)}
+        }
+
+        @keyframes floatCard{
+            0%,100%{transform:translateY(0)}
+            50%{transform:translateY(-12px)}
+        }
+
+        @keyframes floatTag{
+            0%,100%{transform:translateY(0)}
+            50%{transform:translateY(-10px)}
+        }
+
+        @keyframes heartBeat{
+            0%,100%{transform:scale(1)}
+            25%{transform:scale(1.08)}
+            50%{transform:scale(.96)}
+            70%{transform:scale(1.14)}
+        }
+
+        @media (max-width: 980px){
+            .hero,
+            .about-box{
+                grid-template-columns:1fr;
+            }
+
+            .hero{
+                min-height:auto;
+                padding-top:40px;
+            }
+
+            .hero-copy{
+                text-align:center;
+            }
+
+            .hero p,
+            .hero-actions,
+            .stats{
+                justify-content:center;
+                margin-left:auto;
+                margin-right:auto;
+            }
+
+            .grid-3{
+                grid-template-columns:1fr 1fr;
+            }
+
+            .floating.top{right:4%}
+            .floating.bottom{left:4%}
+        }
+
+        @media (max-width: 700px){
+            .navbar{
+                border-radius:28px;
+                justify-content:center;
+            }
+
+            .logo,
+            .nav-links,
+            .navbar-right{
+                width:100%;
+                justify-content:center;
+                display:flex;
+                flex-wrap:wrap;
+            }
+
+            .grid-3{
+                grid-template-columns:1fr;
+            }
+
+            .stat{
+                width:calc(50% - 7px);
+                min-width:0;
+            }
+        }
+
+        @media (max-width: 480px){
+            .container{
+                width:min(100% - 16px,1180px);
+            }
+
+            .stat,
+            .hero-actions .btn{
+                width:100%;
+            }
+
+            .floating{
+                position:static;
+                margin-top:10px;
+            }
+
+            .hero-visual{
+                min-height:auto;
+                display:flex;
+                flex-direction:column;
+                gap:12px;
+            }
+
+            #heart{
+                width:58px;
+                height:58px;
+                font-size:1.5rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce){
+            *{
+                animation:none !important;
+                transition:none !important;
+                scroll-behavior:auto !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="heart"><i class="fa-solid fa-heart"></i></div>
+
+    <div class="container">
+        <nav class="navbar">
+            <div class="logo">
+                <div class="logo-icon"><i class="fa-solid fa-k"></i></div>
+                <div class="logo-text">
+                    <strong>Kyada Prince</strong>
+                    <span>Creative Developer</span>
+                </div>
+            </div>
+
+            <div class="nav-links">
+                <a href="#home" class="active">Home</a>
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
+            </div>
+
+            <div class="navbar-right">
+                <a href="#contact" class="nav-btn">Hire Me</a>
+            </div>
+        </nav>
+
+        <section class="hero" id="home">
+            <div class="hero-copy reveal">
+                <div class="badge">
+                    <i class="fa-solid fa-sparkles"></i>
+                    Modern animated portfolio website
+                </div>
+
+                <h1>
+                    The Developer
+                    <span>Kyada Prince</span>
+                </h1>
+
+                <p>
+                    I create <span class="typing"></span> with strong UI, smooth motion, and responsive layouts that look clean on desktop, tablet, and mobile.
+                </p>
+
+                <div class="hero-actions">
+                    <a href="#projects" class="btn btn-primary">View Projects</a>
+                    <a href="#contact" class="btn btn-outline">Contact Me</a>
+                </div>
+
+                <div class="stats">
+                    <div class="stat">
+                        <strong>24+</strong>
+                        Projects
+                    </div>
+                    <div class="stat">
+                        <strong>3+</strong>
+                        Years Learning
+                    </div>
+                    <div class="stat">
+                        <strong>100%</strong>
+                        Responsive
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-visual reveal">
+                <div class="orbit"></div>
+
+                <div class="image-card">
+                    <img src="testimg.png" alt="Kyada Prince">
+                </div>
+
+                <div class="floating top">
+                    <i class="fa-solid fa-bolt"></i> Smooth Motion
+                </div>
+
+                <div class="floating bottom">
+                    <i class="fa-solid fa-mobile-screen-button"></i> Mobile Ready
+                </div>
+            </div>
+        </section>
+
+        <section class="block" id="about">
+            <div class="section-head reveal">
+                <h2>About Me</h2>
+                <p>I focus on building attractive websites with better design balance, motion effects, clean structure, and user-friendly responsive behavior.</p>
+            </div>
+
+            <div class="about-box">
+                <div class="about-panel reveal">
+                    <h3>Who I Am</h3>
+                    <p style="color:var(--muted);line-height:1.8">
+                        I am Kyada Prince, a developer who enjoys creating elegant interfaces, landing pages, dashboards, and portfolio websites. I like mixing animation with practical layout structure so the design feels alive instead of static.
+                    </p>
+                    <div class="skills">
+                        <span class="skill">HTML</span>
+                        <span class="skill">CSS</span>
+                        <span class="skill">JavaScript</span>
+                        <span class="skill">Responsive UI</span>
+                        <span class="skill">Animations</span>
+                        <span class="skill">Frontend Design</span>
+                    </div>
+                </div>
+
+                <div class="about-panel reveal">
+                    <h3>Why This Version Is Better</h3>
+                    <p style="color:var(--muted);line-height:1.8">
+                        This layout adds depth, stronger sectioning, hover interaction, cleaner spacing, better typography, and adaptive breakpoints. The design also scales much better across small and large screens.
+                    </p>
+                    <div class="skills">
+                        <span class="skill">Glass UI</span>
+                        <span class="skill">Glow Effects</span>
+                        <span class="skill">Scroll Reveal</span>
+                        <span class="skill">Typing Effect</span>
+                        <span class="skill">Sticky Navbar</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="block" id="skills">
+            <div class="section-head reveal">
+                <h2>My Skills</h2>
+                <p>These cards make the page feel more complete and professional instead of looking like a single hero section only.</p>
+            </div>
+
+            <div class="grid-3">
+                <div class="card reveal">
+                    <i class="fa-solid fa-code"></i>
+                    <h3>Frontend Development</h3>
+                    <p>Clean HTML structure, modern CSS layout, and interactive JavaScript behavior with responsive performance.</p>
+                </div>
+
+                <div class="card reveal">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    <h3>UI Animation</h3>
+                    <p>Animated cards, floating elements, transitions, glowing backgrounds, and motion that improves the feel of the page.</p>
+                </div>
+
+                <div class="card reveal">
+                    <i class="fa-solid fa-object-group"></i>
+                    <h3>Responsive Design</h3>
+                    <p>Layouts that adapt properly on desktop, tablet, and mobile without breaking alignment or spacing.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="block">
+            <div class="section-head reveal">
+                <h2>Services</h2>
+                <p>You asked to add more. These extra content sections make the website feel like a real portfolio or business homepage.</p>
+            </div>
+
+            <div class="grid-3">
+                <div class="card reveal">
+                    <i class="fa-solid fa-laptop-code"></i>
+                    <h3>Portfolio Websites</h3>
+                    <p>Personal and professional websites that present your profile, skills, and work in a polished way.</p>
+                </div>
+
+                <div class="card reveal">
+                    <i class="fa-solid fa-layer-group"></i>
+                    <h3>Landing Pages</h3>
+                    <p>High-impact landing pages designed for products, businesses, events, and online presence growth.</p>
+                </div>
+
+                <div class="card reveal">
+                    <i class="fa-solid fa-rocket"></i>
+                    <h3>UI Enhancement</h3>
+                    <p>Redesigning basic pages into better structured, animated, and more visually effective interfaces.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="block" id="projects">
+            <div class="section-head reveal">
+                <h2>Featured Projects</h2>
+                <p>Project cards make the page feel realistic and help the visitor quickly understand your work style.</p>
+            </div>
+
+            <div class="grid-3">
+                <div class="card project-card reveal">
+                    <div class="project-image"><i class="fa-solid fa-couch"></i></div>
+                    <div class="project-content">
+                        <h3>Furniture Management UI</h3>
+                        <p>A management dashboard concept for inventory, order flow, and category control with a neat admin-friendly structure.</p>
+                    </div>
+                </div>
+
+                <div class="card project-card reveal">
+                    <div class="project-image"><i class="fa-solid fa-user-tie"></i></div>
+                    <div class="project-content">
+                        <h3>Personal Portfolio</h3>
+                        <p>A clean portfolio design with hero animation, service blocks, project cards, and a responsive contact section.</p>
+                    </div>
+                </div>
+
+                <div class="card project-card reveal">
+                    <div class="project-image"><i class="fa-solid fa-store"></i></div>
+                    <div class="project-content">
+                        <h3>Business Landing Page</h3>
+                        <p>A modern business homepage with CTAs, section transitions, bright visual highlights, and conversion-focused layout.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="block" id="contact">
+            <div class="section-head reveal">
+                <h2>Contact Me</h2>
+                <p>A contact area gives the website a proper ending and makes it useful beyond just visual presentation.</p>
+            </div>
+
+            <div class="about-box">
+                <div class="contact-panel reveal">
+                    <h3>Let’s Build Something Better</h3>
+                    <p style="color:var(--muted);line-height:1.8">
+                        If you want a more stylish portfolio, business page, or animated landing page, this section can be connected later to PHP or a backend mail handler.
+                    </p>
+                    <div class="skills">
+                        <span class="skill"><i class="fa-solid fa-envelope"></i> prince@example.com</span>
+                        <span class="skill"><i class="fa-solid fa-phone"></i> +91 00000 00000</span>
+                    </div>
+                </div>
+
+                <div class="contact-panel reveal">
+                    <form>
+                        <input type="text" placeholder="Your Name">
+                        <input type="email" placeholder="Your Email">
+                        <textarea placeholder="Write your message"></textarea>
+                        <button type="submit" class="btn btn-primary" style="border:none;cursor:pointer">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer reveal">
+            <p>© 2026 Kyada Prince. Designed with animation, responsive structure, and modern UI styling.</p>
+        </footer>
+    </div>
+
+    <script>
+        const words = ["responsive websites", "animated interfaces", "modern portfolio pages", "creative frontend experiences"];
+        const typingEl = document.querySelector(".typing");
+        let wordIndex = 0;
+        let charIndex = 0;
+        let deleting = false;
+
+        function typeEffect() {
+            const currentWord = words[wordIndex];
+            typingEl.textContent = deleting
+                ? currentWord.substring(0, charIndex--)
+                : currentWord.substring(0, charIndex++);
+
+            if (!deleting && charIndex === currentWord.length + 1) {
+                deleting = true;
+                setTimeout(typeEffect, 1200);
+                return;
+            }
+
+            if (deleting && charIndex === 0) {
+                deleting = false;
+                wordIndex = (wordIndex + 1) % words.length;
+            }
+
+            setTimeout(typeEffect, deleting ? 45 : 90);
+        }
+
+        typeEffect();
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("show");
+                }
+            });
+        }, { threshold: 0.18 });
+
+        document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+
+        const sections = document.querySelectorAll("section[id]");
+        const navLinks = document.querySelectorAll(".nav-links a");
+
+        window.addEventListener("scroll", () => {
+            let current = "";
+            sections.forEach(section => {
+                const top = section.offsetTop - 140;
+                if (pageYOffset >= top) {
+                    current = section.getAttribute("id");
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove("active");
+                if (link.getAttribute("href") === "#" + current) {
+                    link.classList.add("active");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
