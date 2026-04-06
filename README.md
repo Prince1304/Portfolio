@@ -61,8 +61,8 @@ This portfolio includes different projects showcasing my development skills, suc
 
 If you want to work together or have any questions:
 
-- 📧 Email: your-email@example.com  
-- 🌐 Portfolio: https://prince1304.github.io/Portfolio/  
+- 📧 Email:kyadaprince43@gmail.com  
+- 🌐 Portfolio: https://codingwithkp.great-site.net/ 
 - 💼 GitHub: https://github.com/prince1304  
 
 ---
