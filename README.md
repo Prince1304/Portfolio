@@ -24,7 +24,7 @@ I enjoy transforming ideas into real-world projects using clean code, creative d
 - Bootstrap  
 - PHP (Basic Knowledge)  
 - Python (Learning)  
-
+- MYSQL(Database)
 ---
 
 ## ✨ Features
